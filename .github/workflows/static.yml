@@ -37,7 +37,7 @@ jobs:
       - name: 📤 Upload static files
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './index.html'  # Upload root folder — make sure it includes index.html
+          path: './'  # Uploads everything in the root folder
 
       - name: 🚀 Deploy to GitHub Pages
         id: deployment
