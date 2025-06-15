@@ -1,0 +1,44 @@
+# Simple workflow for deploying static content to GitHub Pages
+name: Deploy static content to Pages
+
+on:
+  # Trigger deployment on push to the main branch
+  push:
+    branches: ["main"]
+
+  # Manual trigger from the Actions tab
+  workflow_dispatch:
+
+# Set permissions for GitHub Pages deployment
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Limit to one deployment at a time
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📦 Checkout repository content
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: 📤 Upload static files
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './'  # Upload root folder — make sure it includes index.html
+
+      - name: 🚀 Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
