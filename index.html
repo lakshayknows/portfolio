@@ -15,13 +15,6 @@
         <!-- Day/Night Cycle Toggle -->
         <div class="day-night-cycle" id="dayNightToggle" onclick="toggleDayNightCycle()"></div>
         
-        <!-- Mini-Map -->
-        <div class="mini-map" id="miniMap">
-            <div class="mini-map-title">MINI-MAP</div>
-            <div class="mini-map-content" id="miniMapContent"></div>
-            <div class="mini-map-toggle" onclick="toggleMiniMap()">×</div>
-        </div>
-        
         <!-- Enhanced HUD -->
         <div class="hud glow-pulse">
             <div class="level-display">LVL <span id="level">1</span> DATA SCIENTIST</div>
@@ -146,20 +139,26 @@
             </div>
         </div>
         
-        <!-- Sound Controls -->
-        <div class="sound-controls">
-            <div class="sound-button active" id="soundToggle" onclick="toggleSound()">
-                <span class="sound-icon">🔊</span>
-            </div>
-            <div class="sound-button active" id="musicToggle" onclick="toggleMusic()">
-                <span class="sound-icon">🎵</span>
-            </div>
-        </div>
-        
-        <!-- Replace your existing how-to-play section with these elements -->
-    <button class="how-to-play-button" onclick="toggleHowToPlay()">?</button>
+    <!-- Sound and Help Controls -->
+<div class="sound-controls">
+    <!-- Sound Toggle -->
+    <div class="sound-button active" id="soundToggle" onclick="toggleSound()">
+        <span class="sound-icon">🔊</span>
+    </div>
+    
+    <!-- Music Toggle -->
+    <div class="sound-button active" id="musicToggle" onclick="toggleMusic()">
+        <span class="sound-icon">🎵</span>
+    </div>
+    
+    <!-- How to Play Button -->
+    <div class="sound-button" onclick="toggleHowToPlay()">
+        <span class="sound-icon">?</span>
+    </div>
+</div>
 
-        <div class="how-to-play-menu" id="howToPlayMenu">
+<!-- How to Play Menu -->
+<div class="how-to-play-menu" id="howToPlayMenu">
     <ul>
         <li><i>🎯</i> Click coins to collect</li>
         <li><i>🏃</i> Character moves to clicked coins</li>

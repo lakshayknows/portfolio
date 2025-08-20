@@ -1518,3 +1518,18 @@
         setInterval(checkAchievements, 5000);
     });
 })();
+// Add this to your existing JavaScript
+function toggleHowToPlay() {
+    const menu = document.getElementById('howToPlayMenu');
+    menu.classList.toggle('visible');
+}
+
+// Optional: Close menu when clicking outside
+document.addEventListener('click', function(event) {
+    const menu = document.getElementById('howToPlayMenu');
+    const button = document.querySelector('.how-to-play-button');
+    
+    if (!menu.contains(event.target) && !button.contains(event.target)) {
+        menu.classList.remove('visible');
+    }
+});
