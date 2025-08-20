@@ -324,26 +324,43 @@
         }
     }
     
-    // Sound toggle functions
-    window.toggleSound = function() {
+// 3. Add error handling to your toggle functions
+window.toggleSound = async function() {
+    try {
+        if (Tone.context.state !== 'running') {
+            await Tone.context.resume();
+        }
         gameSettings.soundEnabled = !gameSettings.soundEnabled;
         soundToggle.classList.toggle('active');
-        soundToggle.querySelector('.sound-icon').textContent = gameSettings.soundEnabled ? '🔊' : '🔇';
+        soundToggle.querySelector('.sound-icon').textContent = 
+            gameSettings.soundEnabled ? '🔊' : '🔇';
+    } catch (error) {
+        console.error('Error toggling sound:', error);
     }
-    
-    window.toggleMusic = function() {
+}
+
+window.toggleMusic = async function() {
+    try {
+        if (Tone.context.state !== 'running') {
+            await Tone.context.resume();
+        }
         gameSettings.musicEnabled = !gameSettings.musicEnabled;
         musicToggle.classList.toggle('active');
         
         if (backgroundMusic) {
             if (gameSettings.musicEnabled) {
-                Tone.Transport.start();
+                await Tone.Transport.start();
                 backgroundMusic.start(0);
+                console.log('Music started');
             } else {
                 backgroundMusic.stop();
+                console.log('Music stopped');
             }
         }
+    } catch (error) {
+        console.error('Error toggling music:', error);
     }
+}
     
     // Sprite change function
     window.changeSprite = function(spriteType) {
@@ -1518,18 +1535,29 @@
         setInterval(checkAchievements, 5000);
     });
 })();
-// Add this to your existing JavaScript
-function toggleHowToPlay() {
-    const menu = document.getElementById('howToPlayMenu');
-    menu.classList.toggle('visible');
-}
-
-// Optional: Close menu when clicking outside
-document.addEventListener('click', function(event) {
-    const menu = document.getElementById('howToPlayMenu');
-    const button = document.querySelector('.how-to-play-button');
-    
-    if (!menu.contains(event.target) && !button.contains(event.target)) {
-        menu.classList.remove('visible');
+// 1. First, add Tone.js loading check and initialization
+document.addEventListener('DOMContentLoaded', async function() {
+    // Check if Tone.js is loaded
+    if (typeof Tone === 'undefined') {
+        console.error('Tone.js not loaded! Make sure you have included the Tone.js script.');
+        return;
     }
+
+    // Initialize audio context on user interaction
+    const startAudioButton = document.createElement('button');
+    startAudioButton.textContent = 'Start Game';
+    startAudioButton.className = 'start-button';
+    document.body.appendChild(startAudioButton);
+
+    startAudioButton.addEventListener('click', async () => {
+        try {
+            await Tone.start();
+            console.log('Audio is ready');
+            startAudioButton.remove();
+            await setupAudio();
+            initializeGame(); // Your main game initialization function
+        } catch (error) {
+            console.error('Error starting audio:', error);
+        }
+    });
 });
