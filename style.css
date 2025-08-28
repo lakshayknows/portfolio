@@ -28,6 +28,7 @@ body.sunset-mode {
     color: #004433;
 }
 
+
 .day-night-cycle {
     position: fixed;
     top: 20px;
@@ -51,6 +52,7 @@ body.sunset-mode {
     background: #ff7700;
     box-shadow: 0 0 20px rgba(255, 119, 0, 0.8);
 }
+
 
 .crt-overlay {
     position: fixed;
