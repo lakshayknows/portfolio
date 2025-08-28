@@ -1,0 +1,23 @@
+{
+  "name": "lakshay-portfolio-game",
+  "version": "1.0.0",
+  "description": "Interactive RPG-style portfolio game for Lakshay Handa",
+  "main": "index.html",
+  "scripts": {
+    "dev": "http-server . -p 3000 -o",
+    "start": "http-server . -p 3000",
+    "build": "echo 'Static site - no build needed'"
+  },
+  "keywords": [
+    "portfolio",
+    "game",
+    "rpg",
+    "interactive",
+    "data-science"
+  ],
+  "author": "Lakshay Handa",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}
