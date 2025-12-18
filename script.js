@@ -245,7 +245,6 @@
             return data.choices?.[0]?.message?.content || getFallback(message);
         } catch (e) { return getFallback(message); }
     }
-
     function getFallback(msg) {
         const m = msg.toLowerCase();
         if (m.includes('project')) return "Key projects: Fraud Detection (99.95% accuracy), SMS Spam Classifier (97%), Sentiment Analysis (74K+ tweets).";
