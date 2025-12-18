@@ -3,174 +3,743 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lakshay Handa: Rise of the Data Scientist</title>
+    <title>Lakshay Handa | AI Engineer · ML Systems · Prototype to Production</title>
+    <meta name="description" content="Lakshay Handa - AI Engineer building scalable ML systems with 99.95% accuracy models.">
     <link rel="stylesheet" href="style.css">
-    <!-- Add this in your HTML head section -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
-<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
+    <script src="config.js"></script>
 </head>
 <body>
-    <div class="crt-overlay"></div>
+    <!-- CRT Overlay -->
+    <div class="crt-overlay" id="crtOverlay"></div>
     <div class="particle-system" id="particleSystem"></div>
+    <div class="star-field" id="starField"></div>
     
-    <div class="game-container">
-        <!-- Day/Night Cycle Toggle -->
-        <div class="day-night-cycle" id="dayNightToggle" onclick="toggleDayNightCycle()"></div>
+    <!-- ==================== PRESS START OVERLAY ==================== -->
+    <div class="press-start-overlay" id="pressStartOverlay">
+        <div class="start-scanlines"></div>
+        <div class="start-content">
+            <div class="start-hints">
+                <div class="hint-item">
+                    <span class="hint-icon">⚔️</span>
+                    <span>LVL 1: IDENTITY</span>
+                </div>
+                <div class="hint-item">
+                    <span class="hint-icon">⭐</span>
+                    <span>XP: CURIOSITY</span>
+                </div>
+                <div class="hint-item">
+                    <span class="hint-icon">🎒</span>
+                    <span>INVENTORY: IDEAS</span>
+                </div>
+            </div>
+            <div class="title-container">
+                <div class="title-decoration">★ ★ ★</div>
+                <h1 class="start-title">LAKSHAY HANDA</h1>
+                <div class="title-tagline">AI ENGINEER • ML ARCHITECT • DATA SCIENTIST</div>
+                <div class="title-decoration">★ ★ ★</div>
+            </div>
+            <div class="start-stats">
+                <div class="start-stat">
+                    <span class="stat-num">99.95%</span>
+                    <span class="stat-desc">MODEL ACCURACY</span>
+                </div>
+                <div class="start-stat">
+                    <span class="stat-num">6.2M+</span>
+                    <span class="stat-desc">DATA PROCESSED</span>
+                </div>
+                <div class="start-stat">
+                    <span class="stat-num">5+</span>
+                    <span class="stat-desc">LIVE PROJECTS</span>
+                </div>
+            </div>
+            <button class="press-start-btn" id="pressStartBtn">
+                <span class="btn-icon">▶</span>
+                <span class="btn-text">PRESS START</span>
+                <span class="btn-icon">◀</span>
+            </button>
+            <p class="start-instruction">— CLICK TO BEGIN YOUR ADVENTURE —</p>
+        </div>
+    </div>
+
+    <!-- ==================== GAME SECTION ==================== -->
+    <div class="game-container" id="gameContainer">
         
         <!-- Enhanced HUD -->
-        <div class="hud glow-pulse">
-            <div class="level-display">LVL <span id="level">1</span> DATA SCIENTIST</div>
-            <div>XP: <span id="coinsCollected">0</span>/<span id="xpToNextLevel">2000</span></div>
-            <div class="xp-bar">
-                <div class="xp-fill" id="xpFill"></div>
+        <div class="hud glass-panel" id="gameHud">
+            <div class="hud-header">
+                <span class="hud-title">STATUS</span>
+                <div class="hud-level">LVL <span id="level">1</span></div>
             </div>
-            <div style="margin-top: 10px; font-size: 8px; color: #888;">
-                COINS COLLECTED: <span id="totalCoinsCollected" style="color: #ffd700;">0</span>
+            <div class="hud-class">AI ENGINEER</div>
+            <div class="hud-stats">
+                <div class="hud-stat-row">
+                    <span class="stat-icon">⚡</span>
+                    <span class="stat-name">XP</span>
+                    <div class="xp-bar">
+                        <div class="xp-fill" id="xpFill"></div>
+                        <span class="xp-text"><span id="coinsCollected">0</span>/<span id="xpToNextLevel">2000</span></span>
+                    </div>
+                </div>
+                <div class="hud-stat-row">
+                    <span class="stat-icon">💰</span>
+                    <span class="stat-name">COINS</span>
+                    <span class="stat-value" id="totalCoinsCollected">0</span>
+                </div>
+                <div class="hud-stat-row">
+                    <span class="stat-icon">🗺️</span>
+                    <span class="stat-name">REGIONS</span>
+                    <span class="stat-value"><span id="viewedRegions">0</span>/<span id="totalRegions">7</span></span>
+                </div>
             </div>
-        </div>
-        
-        <!-- Enhanced Action Buttons -->
-        <div class="action-buttons">
-            <button class="rpg-button" onclick="openWorldMap()">🗺️ INFO MAP</button>
-            <button class="rpg-button" onclick="toggleChatbot()">🤖 AI CHAT</button>
-            <button class="rpg-button" onclick="openAchievements()">🏆 ACHIEVEMENTS</button>
-            <button class="rpg-button" onclick="resetGame()">🔄 RESET</button>
-        </div>
-        
-        <!-- Enhanced Title Screen -->
-        <div class="title-screen">
-            <h1 class="main-title">LAKSHAY HANDA</h1>
-            <h2 class="subtitle">RISE OF THE DATA SCIENTIST</h2>
-            <div class="game-instructions">
-                > ENHANCED CONTROLS:<br>
-                > CLICK COINS TO COLLECT THEM<br>
-                > CHARACTER MOVES TO CLICKED COINS<br>
-                > ACCESS INFO MAP FOR DETAILED PROFILE<br>
-                > CHAT WITH AI BOT FOR QUESTIONS<br>
-                > COLLECT ALL COINS TO UNLOCK FINAL FORM<br>
-                > CUSTOM SOUND EFFECTS & ANIMATIONS<br>
-                <br>
-                > 16-BIT RPG EXPERIENCE WITH SPRITE ANIMATIONS
-            </div>
-        </div>
-        
-        <!-- Enhanced Game World -->
-        <div class="game-world" id="gameWorld">
-            <div class="character sprite1" id="character"></div>
-            <div class="parallax-bg"></div>
-            <div class="ground-track"></div>
-            <div class="character sprite1" id="character"></div> 
-        </div>
-        
-        <!-- Enhanced Progress Stats -->
-        <div class="progress-stats">
-            <div class="stat">
-                <div class="stat-value" id="totalRegions">7</div>
-                <div class="stat-label">INFO REGIONS</div>
-            </div>
-            <div class="stat">
-                <div class="stat-value" id="viewedRegions">0</div>
-                <div class="stat-label">VIEWED</div>
-            </div>
-            <div class="stat">
-                <div class="stat-value" id="currentLevel">1</div>
-                <div class="stat-label">CURRENT LVL</div>
-            </div>
-            <div class="stat">
-                <div class="stat-value" id="totalCoinsCollectedStat">0</div>
-                <div class="stat-label">COINS FOUND</div>
-            </div>
-        </div>
-        
-        <!-- Enhanced World Map Modal -->
-        <div class="world-map-modal" id="worldMapModal">
-            <div class="world-map-content">
-                <button class="close-button" onclick="closeWorldMap()">✕</button>
-                <h2 class="world-map-title">LAKSHAY'S DATA UNIVERSE</h2>
-                
-                <div class="regions-grid" id="regionsGrid">
-                    <!-- Regions will be dynamically loaded here by JS -->
+            <div class="hud-inventory">
+                <span class="inventory-title">SKILLS UNLOCKED</span>
+                <div class="inventory-items" id="inventoryItems">
+                    <span class="inv-item locked" title="Python">🐍</span>
+                    <span class="inv-item locked" title="ML">🧠</span>
+                    <span class="inv-item locked" title="Data">📊</span>
+                    <span class="inv-item locked" title="Deploy">🚀</span>
                 </div>
             </div>
         </div>
+        
+        <!-- Action Buttons - Redesigned as floating orbs -->
+        <div class="action-orbs" id="gameActions">
+            <button class="action-orb" onclick="openWorldMap()" title="Info Map">
+                <span class="orb-icon">🗺️</span>
+                <span class="orb-label">MAP</span>
+            </button>
+            <button class="action-orb" onclick="toggleChatbot()" title="AI Chat">
+                <span class="orb-icon">🤖</span>
+                <span class="orb-label">AI</span>
+            </button>
+            <button class="action-orb" onclick="openAchievements()" title="Achievements">
+                <span class="orb-icon">🏆</span>
+                <span class="orb-label">QUESTS</span>
+            </button>
+        </div>
+        
+        <!-- Game World - Enhanced with multiple layers -->
+        <div class="game-world-container">
+            <div class="game-world" id="gameWorld">
+                <!-- Background layers -->
+                <div class="sky-layer"></div>
+                <div class="cloud-layer">
+                    <div class="cloud cloud-1"></div>
+                    <div class="cloud cloud-2"></div>
+                    <div class="cloud cloud-3"></div>
+                </div>
+                <div class="mountain-layer"></div>
+                <div class="tree-layer">
+                    <div class="tree tree-1"></div>
+                    <div class="tree tree-2"></div>
+                    <div class="tree tree-3"></div>
+                </div>
+                
+                <!-- Ground with grass -->
+                <div class="ground-layer">
+                    <div class="grass-row"></div>
+                    <div class="dirt-layer"></div>
+                </div>
+                
+                <!-- Game entities -->
+                <div class="character" id="character">
+                    <div class="character-shadow"></div>
+                </div>
+                
+                <!-- Portal -->
+                <div class="portal-container" id="gamePortal" onclick="enterPortal()">
+                    <div class="portal-ring ring-1"></div>
+                    <div class="portal-ring ring-2"></div>
+                    <div class="portal-ring ring-3"></div>
+                    <div class="portal-core"></div>
+                    <div class="portal-particles"></div>
+                    <span class="portal-label">PORTFOLIO →</span>
+                </div>
 
-        <!-- Enhanced Chatbot -->
-        <div class="chatbot" id="chatbot">
-            <div class="chatbot-header" onclick="toggleChatbot()">
-                <span>🤖 AI ASSISTANT v2.0</span>
-                <span id="chatbotToggleIcon">_</span>
+                <!-- Floating platforms for extra gameplay -->
+                <div class="floating-platform platform-1"></div>
+                <div class="floating-platform platform-2"></div>
+            </div>
+        </div>
+        
+        <!-- Progress panel -->
+        <div class="progress-panel glass-panel">
+            <div class="progress-title">QUEST PROGRESS</div>
+            <div class="progress-items">
+                <div class="progress-item">
+                    <span class="progress-icon">📖</span>
+                    <div class="progress-info">
+                        <span class="progress-name">Explore All Regions</span>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="regionProgress"></div>
+                        </div>
+                    </div>
+                    <span class="progress-count" id="regionCount">0/7</span>
+                </div>
+                <div class="progress-item">
+                    <span class="progress-icon">💎</span>
+                    <div class="progress-info">
+                        <span class="progress-name">Collect Coins</span>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="coinProgress"></div>
+                        </div>
+                    </div>
+                    <span class="progress-count" id="coinCount">0/20</span>
+                </div>
+                <div class="progress-item">
+                    <span class="progress-icon">⬆️</span>
+                    <div class="progress-info">
+                        <span class="progress-name">Reach Max Level</span>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="levelProgress"></div>
+                        </div>
+                    </div>
+                    <span class="progress-count" id="currentLevel">1</span>/6</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- World Map Modal -->
+        <div class="world-map-modal" id="worldMapModal">
+            <div class="world-map-content glass-panel">
+                <button class="close-button" onclick="closeWorldMap()">
+                    <span>✕</span>
+                </button>
+                <div class="map-header">
+                    <h2 class="world-map-title">🌍 LAKSHAY'S UNIVERSE</h2>
+                    <p class="map-subtitle">Click a region to unlock knowledge</p>
+                </div>
+                <div class="regions-grid" id="regionsGrid"></div>
+            </div>
+        </div>
+
+        <!-- AI Chatbot - Redesigned (Minimized by default) -->
+        <div class="chatbot glass-panel minimized" id="chatbot">
+            <div class="chatbot-header">
+                <div class="chat-avatar">🤖</div>
+                <div class="chat-info">
+                    <span class="chat-title">LAKSHAY AI</span>
+                    <span class="chat-status">● Online - Powered by LLM</span>
+                </div>
+                <button class="chat-minimize" onclick="toggleChatbot()">
+                    <span id="chatbotToggleIcon">+</span>
+                </button>
             </div>
             <div class="chatbot-messages" id="chatbotMessages">
-                <div class="message bot-message">🎮 Greetings, adventurer! Ask me anything about Lakshay's epic data journey. Try asking about his skills, projects, or experience!</div>
+                <div class="message bot-message">
+                    <div class="msg-avatar">🤖</div>
+                    <div class="msg-content">
+                        <p>Hey there! 👋 I'm Lakshay's AI assistant, powered by real-time LLM.</p>
+                        <p>Ask me about his <strong>projects</strong>, <strong>skills</strong>, <strong>experience</strong>, or anything else!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="chat-suggestions">
+                <button class="suggestion-chip" onclick="askQuestion('What projects has Lakshay built?')">Projects</button>
+                <button class="suggestion-chip" onclick="askQuestion('What are his ML skills?')">Skills</button>
+                <button class="suggestion-chip" onclick="askQuestion('Tell me about his experience')">Experience</button>
             </div>
             <div class="chatbot-input">
-                <input type="text" id="chatInput" placeholder="Type your epic query...">
-                <button onclick="sendMessage()">SEND</button>
+                <input type="text" id="chatInput" placeholder="Type your question...">
+                <button onclick="sendMessage()" class="send-btn">
+                    <span>➤</span>
+                </button>
             </div>
         </div>
 
-        <!-- Enhanced Level Up Notification -->
+        <!-- Notifications -->
         <div class="level-up-notification" id="levelUpNotification">
-            LEVEL UP! <span id="leveledUpTo"></span>
+            <div class="notif-icon">⬆️</div>
+            <div class="notif-content">
+                <span class="notif-title">LEVEL UP!</span>
+                <span class="notif-desc" id="leveledUpTo"></span>
+            </div>
         </div>
         
-        <!-- Achievement System Modal -->
+        <!-- Achievement Modal -->
         <div class="modal" id="achievementsModal">
-            <div class="modal-content achievements-modal-content">
+            <div class="modal-content glass-panel">
                 <div class="modal-header">
                     <h2>🏆 ACHIEVEMENTS</h2>
-                    <span class="close-button" onclick="closeAchievementsModal()">×</span>
+                    <button class="close-button" onclick="closeAchievementsModal()">×</button>
                 </div>
-                <div class="modal-body" id="achievementsList">
-                    <!-- Achievements will be dynamically added here -->
-                </div>
+                <div class="modal-body" id="achievementsList"></div>
             </div>
         </div>
         
         <!-- Achievement Popup -->
-        <div class="achievement-popup" id="achievementPopup" style="display: none;">
-            <div class="achievement-popup-header">
-                <div class="achievement-popup-icon">🏆</div>
-                <div class="achievement-popup-title">Achievement Unlocked!</div>
-            </div>
-            <div class="achievement-popup-description" id="achievementPopupDescription">
-                You've unlocked a new achievement!
-            </div>
-            <div class="achievement-popup-reward" id="achievementPopupReward">
-                Reward: +500 XP
+        <div class="achievement-popup" id="achievementPopup">
+            <div class="achievement-glow"></div>
+            <div class="achievement-content">
+                <div class="achievement-icon">🏆</div>
+                <div class="achievement-text">
+                    <span class="ach-title">Achievement Unlocked!</span>
+                    <span class="ach-desc" id="achievementPopupDescription"></span>
+                    <span class="ach-reward" id="achievementPopupReward"></span>
+                </div>
             </div>
         </div>
+
+        <!-- Sound Controls -->
+        <div class="control-dock">
+            <button class="dock-btn active" id="soundToggle" onclick="toggleSound()" title="Sound">
+                <span>🔊</span>
+            </button>
+            <button class="dock-btn active" id="musicToggle" onclick="toggleMusic()" title="Music">
+                <span>🎵</span>
+            </button>
+            <button class="dock-btn" onclick="toggleHowToPlay()" title="Help">
+                <span>❓</span>
+            </button>
+            <button class="dock-btn" onclick="resetGame()" title="Reset">
+                <span>🔄</span>
+            </button>
+        </div>
+
+        <!-- How to Play -->
+        <div class="how-to-play-menu glass-panel" id="howToPlayMenu">
+            <div class="help-title">HOW TO PLAY</div>
+            <ul class="help-list">
+                <li><span class="key">CLICK</span> coins to collect XP</li>
+                <li><span class="key">←/→</span> or <span class="key">A/D</span> to move</li>
+                <li><span class="key">SPACE</span> to jump</li>
+                <li>Explore <span class="key">MAP</span> to unlock info</li>
+                <li>Enter <span class="key">PORTAL</span> for modern view</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ==================== TRANSITION ==================== -->
+    <div class="transition-container" id="transitionContainer">
+        <div class="transition-grid"></div>
+        <div class="transition-content">
+            <div class="loading-dots">
+                <span></span><span></span><span></span>
+            </div>
+            <div class="transition-text">ENTERING PRODUCTION MODE</div>
+        </div>
+    </div>
+
+    <!-- ==================== MODERN PORTFOLIO ==================== -->
+    <div class="modern-portfolio minimal-theme" id="modernPortfolio">
         
-    <!-- Sound and Help Controls -->
-<div class="sound-controls">
-    <!-- Sound Toggle -->
-    <div class="sound-button active" id="soundToggle" onclick="toggleSound()">
-        <span class="sound-icon">🔊</span>
-    </div>
-    
-    <!-- Music Toggle -->
-    <div class="sound-button active" id="musicToggle" onclick="toggleMusic()">
-        <span class="sound-icon">🎵</span>
-    </div>
-    
-    <!-- How to Play Button -->
-    <div class="sound-button" onclick="toggleHowToPlay()">
-        <span class="sound-icon">?</span>
-    </div>
-</div>
+        <!-- Navigation - Minimal -->
+        <nav class="minimal-nav">
+            <a href="#hero" class="nav-brand">Index</a>
+            <div class="nav-links-minimal">
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </nav>
 
-<!-- How to Play Menu -->
-<div class="how-to-play-menu" id="howToPlayMenu">
-    <ul>
-        <li><i>🎯</i> Click coins to collect</li>
-        <li><i>🏃</i> Character moves to clicked coins</li>
-        <li><i>🔊</i> Toggle sound effects</li>
-        <li><i>🎵</i> Toggle background music</li>
-        <li><i>🗺️</i> Open info map to learn more</li>
-    </ul>
-</div>
+        <!-- Hero Section - Large Typography -->
+        <section class="minimal-hero" id="hero">
+            <h1 class="giant-name">LAKSHAY</h1>
+        </section>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
-    <script src="script.js"></script>   
+        <!-- Projects Section with Photo Grid -->
+        <section class="minimal-projects" id="projects">
+            <div class="projects-intro">
+                <h2>PROJECTS</h2>
+                <p>Scalable ML systems, NLP-powered automation, AI agents for workflow execution.</p>
+                <p>I build prototypes that solve real problems fast, lean, production-minded.</p>
+                <div class="project-tags">
+                    <span class="ptag">FRAUD DETECTION</span>
+                    <span class="ptag">SCALABLE ML SYSTEMS</span>
+                    <span class="ptag">AI AUTOMATION</span>
+                    <span class="ptag">NLP / RAG SOLUTIONS</span>
+                    <span class="ptag">ML PIPELINES</span>
+                </div>
+            </div>
+            <div class="photo-grid">
+                <div class="grid-item">
+                    <img src="./assets/profile.jpg" alt="Project 1">
+                    <span class="grid-label">AI Systems</span>
+                </div>
+                <div class="grid-item">
+                    <div class="placeholder-img bg-1"></div>
+                    <span class="grid-label">ML Pipeline</span>
+                </div>
+                <div class="grid-item">
+                    <div class="placeholder-img bg-2"></div>
+                    <span class="grid-label">NLP Engine</span>
+                </div>
+                <div class="grid-item">
+                    <div class="placeholder-img bg-3"></div>
+                    <span class="grid-label">Data Analytics</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section class="projects-section" id="projects">
+            <div class="section-container">
+                <div class="section-header">
+                    <span class="section-tag">PORTFOLIO</span>
+                    <h2 class="section-title">Featured Projects</h2>
+                    <p class="section-desc">Real systems. Real impact. From concept to deployment.</p>
+                </div>
+                
+                <div class="projects-grid">
+                    <!-- Project 1 -->
+                    <article class="project-card featured">
+                        <div class="project-visual">
+                            <div class="project-gradient"></div>
+                            <div class="project-icon-lg">💰</div>
+                        </div>
+                        <div class="project-body">
+                            <div class="project-meta">
+                                <span class="project-tag">ML / Finance</span>
+                                <span class="project-status">🟢 Live</span>
+                            </div>
+                            <h3 class="project-title">Fraud Detection System</h3>
+                            <p class="project-desc">Enterprise-grade ML model detecting fraudulent transactions in real-time across 6.2M+ records with 99.95% accuracy.</p>
+                            <div class="project-highlights">
+                                <div class="highlight">
+                                    <span class="hl-value">99.95%</span>
+                                    <span class="hl-label">Accuracy</span>
+                                </div>
+                                <div class="highlight">
+                                    <span class="hl-value">6.2M+</span>
+                                    <span class="hl-label">Records</span>
+                                </div>
+                                <div class="highlight">
+                                    <span class="hl-value">&lt;50ms</span>
+                                    <span class="hl-label">Latency</span>
+                                </div>
+                            </div>
+                            <div class="project-tech">
+                                <span>Python</span>
+                                <span>XGBoost</span>
+                                <span>Scikit-Learn</span>
+                                <span>Streamlit</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://github.com/lakshayknows" target="_blank" class="project-link">
+                                    <span>GitHub</span>
+                                    <span>↗</span>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Project 2 -->
+                    <article class="project-card">
+                        <div class="project-visual">
+                            <div class="project-gradient grad-2"></div>
+                            <div class="project-icon-lg">📧</div>
+                        </div>
+                        <div class="project-body">
+                            <div class="project-meta">
+                                <span class="project-tag">NLP / Security</span>
+                                <span class="project-status">🟢 Live</span>
+                            </div>
+                            <h3 class="project-title">SMS Spam Classifier</h3>
+                            <p class="project-desc">Advanced NLP pipeline with TF-IDF vectorization achieving 97% accuracy and 100% precision in spam detection.</p>
+                            <div class="project-highlights">
+                                <div class="highlight">
+                                    <span class="hl-value">97%</span>
+                                    <span class="hl-label">Accuracy</span>
+                                </div>
+                                <div class="highlight">
+                                    <span class="hl-value">100%</span>
+                                    <span class="hl-label">Precision</span>
+                                </div>
+                            </div>
+                            <div class="project-tech">
+                                <span>Python</span>
+                                <span>NLTK</span>
+                                <span>TF-IDF</span>
+                                <span>Voting Classifier</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://github.com/lakshayknows" target="_blank" class="project-link">
+                                    <span>GitHub</span>
+                                    <span>↗</span>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Project 3 -->
+                    <article class="project-card">
+                        <div class="project-visual">
+                            <div class="project-gradient grad-3"></div>
+                            <div class="project-icon-lg">💬</div>
+                        </div>
+                        <div class="project-body">
+                            <div class="project-meta">
+                                <span class="project-tag">NLP / Analytics</span>
+                                <span class="project-status">Completed</span>
+                            </div>
+                            <h3 class="project-title">Sentiment Analysis Engine</h3>
+                            <p class="project-desc">Large-scale sentiment analysis on 74K+ social media responses with multi-class classification and visualization.</p>
+                            <div class="project-highlights">
+                                <div class="highlight">
+                                    <span class="hl-value">74K+</span>
+                                    <span class="hl-label">Analyzed</span>
+                                </div>
+                                <div class="highlight">
+                                    <span class="hl-value">Multi</span>
+                                    <span class="hl-label">Class</span>
+                                </div>
+                            </div>
+                            <div class="project-tech">
+                                <span>Python</span>
+                                <span>TensorFlow</span>
+                                <span>Plotly</span>
+                                <span>Pandas</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://github.com/lakshayknows" target="_blank" class="project-link">
+                                    <span>GitHub</span>
+                                    <span>↗</span>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section class="skills-section" id="skills">
+            <div class="section-container">
+                <div class="section-header">
+                    <span class="section-tag">EXPERTISE</span>
+                    <h2 class="section-title">Technical Arsenal</h2>
+                    <p class="section-desc">Tools and technologies I use to build production systems.</p>
+                </div>
+                
+                <div class="skills-grid">
+                    <div class="skill-card">
+                        <div class="skill-header">
+                            <span class="skill-icon">🧠</span>
+                            <h3>ML & AI Systems</h3>
+                        </div>
+                        <ul class="skill-list">
+                            <li><span class="skill-dot"></span>Machine Learning</li>
+                            <li><span class="skill-dot"></span>Deep Learning</li>
+                            <li><span class="skill-dot"></span>Natural Language Processing</li>
+                            <li><span class="skill-dot"></span>Predictive Modeling</li>
+                            <li><span class="skill-dot"></span>Computer Vision</li>
+                        </ul>
+                        <div class="skill-tools">
+                            <span>TensorFlow</span>
+                            <span>PyTorch</span>
+                            <span>Scikit-Learn</span>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-card">
+                        <div class="skill-header">
+                            <span class="skill-icon">📊</span>
+                            <h3>Data Engineering</h3>
+                        </div>
+                        <ul class="skill-list">
+                            <li><span class="skill-dot"></span>Data Analysis & Wrangling</li>
+                            <li><span class="skill-dot"></span>Feature Engineering</li>
+                            <li><span class="skill-dot"></span>ETL Pipelines</li>
+                            <li><span class="skill-dot"></span>Statistical Modeling</li>
+                            <li><span class="skill-dot"></span>Data Visualization</li>
+                        </ul>
+                        <div class="skill-tools">
+                            <span>Pandas</span>
+                            <span>NumPy</span>
+                            <span>Plotly</span>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-card">
+                        <div class="skill-header">
+                            <span class="skill-icon">🚀</span>
+                            <h3>Deployment</h3>
+                        </div>
+                        <ul class="skill-list">
+                            <li><span class="skill-dot"></span>Model Deployment</li>
+                            <li><span class="skill-dot"></span>API Development</li>
+                            <li><span class="skill-dot"></span>Database Management</li>
+                            <li><span class="skill-dot"></span>Version Control</li>
+                            <li><span class="skill-dot"></span>Cloud Platforms</li>
+                        </ul>
+                        <div class="skill-tools">
+                            <span>Streamlit</span>
+                            <span>Git</span>
+                            <span>MongoDB</span>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-card">
+                        <div class="skill-header">
+                            <span class="skill-icon">💻</span>
+                            <h3>Programming</h3>
+                        </div>
+                        <ul class="skill-list">
+                            <li><span class="skill-dot"></span>Python (Primary)</li>
+                            <li><span class="skill-dot"></span>Rust</li>
+                            <li><span class="skill-dot"></span>SQL</li>
+                            <li><span class="skill-dot"></span>Shell Scripting</li>
+                        </ul>
+                        <div class="skill-tools">
+                            <span>Jupyter</span>
+                            <span>VS Code</span>
+                            <span>Colab</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="about-section" id="about">
+            <div class="section-container">
+                <div class="about-grid">
+                    <div class="about-content">
+                        <span class="section-tag">ABOUT</span>
+                        <h2 class="about-title">Building AI systems that work in the real world</h2>
+                        <p class="about-text">
+                            I'm an AI Engineer based in Delhi, currently pursuing B.Com (Honours) at University of Delhi 
+                            while building production-grade ML systems that solve real problems.
+                        </p>
+                        <p class="about-text">
+                            My philosophy: ship fast, iterate faster. From fraud detection analyzing millions of transactions 
+                            to NLP pipelines processing text in real-time, I focus on solutions that deliver measurable impact.
+                        </p>
+                        <div class="about-stats">
+                            <div class="about-stat">
+                                <span class="stat-num">3+</span>
+                                <span class="stat-label">Years Coding</span>
+                            </div>
+                            <div class="about-stat">
+                                <span class="stat-num">10+</span>
+                                <span class="stat-label">ML Models</span>
+                            </div>
+                            <div class="about-stat">
+                                <span class="stat-num">∞</span>
+                                <span class="stat-label">Curiosity</span>
+                            </div>
+                        </div>
+                        <div class="social-links">
+                            <a href="https://x.com/lakshayknows" target="_blank" class="social-link">
+                                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                                <span>X (Twitter)</span>
+                            </a>
+                            <a href="https://linkedin.com/in/lakshayhanda" target="_blank" class="social-link">
+                                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"/></svg>
+                                <span>LinkedIn</span>
+                            </a>
+                            <a href="https://github.com/lakshayknows" target="_blank" class="social-link">
+                                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                                <span>GitHub</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="experience-timeline">
+                        <h3>Experience</h3>
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-content">
+                                    <span class="timeline-date">Nov - Dec 2024</span>
+                                    <h4>Data Science Intern</h4>
+                                    <span class="timeline-company">Prodigy InfoTech</span>
+                                    <p>Built ML models with 92% accuracy, analyzed 74K+ data points for sentiment analysis, deployed real-time prediction systems.</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-content">
+                                    <span class="timeline-date">2024</span>
+                                    <h4>Open Source Contributor</h4>
+                                    <span class="timeline-company">Askage AI</span>
+                                    <p>Developed AI-powered terminal chatbot with authentication, API integration, and LLM memory.</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-content">
+                                    <span class="timeline-date">2023</span>
+                                    <h4>Event Coordinator</h4>
+                                    <span class="timeline-company">French Embassy • Choose France Tour</span>
+                                    <p>Managed large-scale events with 1000+ attendees, achieved 25% satisfaction improvement.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact / Footer -->
+        <footer class="footer-section" id="contact">
+            <div class="footer-container">
+                <div class="footer-game-ref">
+                    <span class="pixel-star">★</span>
+                    <span class="game-ref-text">LEVEL COMPLETE</span>
+                    <span class="pixel-star">★</span>
+                </div>
+                <h2 class="footer-title">Let's Build Something Great</h2>
+                <p class="footer-subtitle">Open to internships, collaborations, and exciting AI/ML opportunities.</p>
+                <a href="mailto:connect.lakshay@outlook.com" class="footer-email">connect.lakshay@outlook.com</a>
+                <div class="footer-social">
+                    <a href="https://x.com/lakshayknows" target="_blank" class="footer-social-link" title="X (Twitter)">
+                        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    </a>
+                    <a href="https://www.linkedin.com/in/lakshayhanda" target="_blank" class="footer-social-link" title="LinkedIn">
+                        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"/></svg>
+                    </a>
+                    <a href="https://github.com/lakshayknows" target="_blank" class="footer-social-link" title="GitHub">
+                        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    </a>
+                    <a href="tel:+919818575939" class="footer-social-link" title="Phone">
+                        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                    </a>
+                </div>
+                <div class="footer-bottom">
+                    <p>© 2024 Lakshay Handa. Crafted with curiosity & code.</p>
+                    <button class="back-to-game" onclick="returnToGame()">
+                        <span>🎮</span>
+                        <span>Return to Game</span>
+                    </button>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Floating AI Chat for Modern Section -->
+        <div class="modern-chat" id="modernChat">
+            <button class="chat-fab" onclick="toggleModernChat()">
+                <span class="fab-icon">💬</span>
+                <span class="fab-pulse"></span>
+            </button>
+            <div class="chat-panel glass-panel" id="modernChatWindow">
+                <div class="chat-panel-header">
+                    <div class="chat-avatar-modern">🤖</div>
+                    <div class="chat-panel-info">
+                        <span class="chat-panel-title">Lakshay AI</span>
+                        <span class="chat-panel-status">Ask me anything</span>
+                    </div>
+                    <button class="chat-panel-close" onclick="toggleModernChat()">×</button>
+                </div>
+                <div class="chat-panel-messages" id="modernChatMessages">
+                    <div class="modern-message bot">
+                        <p>Hi! 👋 I'm Lakshay's AI assistant. I can tell you about his projects, skills, experience, or answer any questions.</p>
+                    </div>
+                </div>
+                <div class="chat-panel-suggestions">
+                    <button onclick="askModernQuestion('What makes Lakshay unique?')">Why Lakshay?</button>
+                    <button onclick="askModernQuestion('Tell me about the fraud detection project')">Projects</button>
+                    <button onclick="askModernQuestion('How can I contact Lakshay?')">Contact</button>
+                </div>
+                <div class="chat-panel-input">
+                    <input type="text" id="modernChatInput" placeholder="Ask anything...">
+                    <button onclick="sendModernMessage()">➤</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
