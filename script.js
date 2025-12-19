@@ -29,13 +29,79 @@
     // DOM helper
     const $ = id => document.getElementById(id);
 
+    // Audio
+    let synth, coinSynth;
+    const initAudio = async () => {
+        if (synth) return;
+        await Tone.start();
+        synth = new Tone.Synth().toDestination();
+        coinSynth = new Tone.PolySynth(Tone.Synth).toDestination();
+        coinSynth.volume.value = -10;
+    };
+    const playSound = (type) => {
+        if (!synth) initAudio();
+        const now = Tone.now();
+        switch (type) {
+            case 'coin': coinSynth.triggerAttackRelease(["C5", "E5"], "8n", now); break;
+            case 'jump': synth.triggerAttackRelease("C4", "8n", now); break;
+            case 'level': coinSynth.triggerAttackRelease(["C4", "E4", "G4", "C5"], "4n", now); break;
+        }
+    };
+
+    // Data
+    const REGIONS = [
+        { id: 'forest', name: 'Random Forest', icon: '🌲', desc: 'Ensemble learning methods', locked: false },
+        { id: 'neural', name: 'Neural Network', icon: '🧠', desc: 'Deep learning architectures', locked: true },
+        { id: 'data', name: 'Data Lake', icon: '🌊', desc: 'Big data storage', locked: true },
+        { id: 'cloud', name: 'Cloud City', icon: '☁️', desc: 'Scalable deployment', locked: true }
+    ];
+    
+    const ACHIEVEMENTS = [
+        { id: 'novice', name: 'Novice Explorer', desc: 'Started the journey', icon: '🎒', unlocked: true },
+        { id: 'collector', name: 'Coin Collector', desc: 'Collected all coins', icon: '💎', unlocked: false },
+        { id: 'master', name: 'AI Master', desc: 'Reached max level', icon: '👑', unlocked: false }
+    ];
+
     // Init
     document.addEventListener('DOMContentLoaded', () => {
-        $('pressStartBtn')?.addEventListener('click', startGame);
+        $('pressStartBtn')?.addEventListener('click', () => { initAudio(); startGame(); });
         $('chatInput')?.addEventListener('keypress', e => e.key === 'Enter' && sendMessage());
         $('modernChatInput')?.addEventListener('keypress', e => e.key === 'Enter' && sendModernMessage());
         document.addEventListener('keydown', handleKeyboard);
+        
+        // Populate Modals
+        renderRegions();
+        renderAchievements();
     });
+
+    function renderRegions() {
+        const grid = $('regionsGrid');
+        if (!grid) return;
+        grid.innerHTML = REGIONS.map(r => `
+            <div class="region ${r.locked ? 'locked' : 'unlocked'}">
+                <div class="region-header">
+                    <span class="region-icon">${r.icon}</span>
+                    <span class="region-title">${r.name}</span>
+                    ${r.locked ? '<span class="region-lock">🔒</span>' : ''}
+                </div>
+                <div class="region-description">${r.desc}</div>
+            </div>
+        `).join('');
+    }
+
+    function renderAchievements() {
+        const grid = $('achievementsList');
+        if (!grid) return;
+        grid.innerHTML = ACHIEVEMENTS.map(a => `
+            <div class="achievement-card ${a.unlocked ? 'unlocked' : 'locked'}">
+                <div class="ach-icon">${a.icon}</div>
+                <div class="ach-info">
+                    <div class="ach-name">${a.name}</div>
+                    <div class="ach-desc">${a.desc}</div>
+                </div>
+            </div>
+        `).join('');
+    }
 
     function startGame() {
         if (gameStarted) return;
@@ -117,6 +183,7 @@
         player.collectedCoins.add(coin.data.id);
         player.xp += coin.data.xp;
         player.coins++;
+        playSound('coin');
         coin.el.classList.add('collected');
         showSkillPopup(coin.data);
         setTimeout(() => coin.el.remove(), 400);
@@ -126,6 +193,7 @@
         
         // Check if all 4 coins collected
         if (player.coins >= 4) {
+            playSound('level');
             setTimeout(() => showPortalPrompt(), 500);
         }
     }
@@ -181,6 +249,11 @@
     // Portal
     function enterPortal() {
         if (isModernMode) return;
+        
+        // Cleanup prompt if it exists (fixes leak)
+        const prompt = $('portalPrompt');
+        if (prompt) prompt.remove();
+
         if (player.coins < 4) {
             showNotification('🔒 Locked', 'Collect all 4 skill coins first!');
             return;
@@ -196,6 +269,7 @@
             $('modernPortfolio')?.classList.add('active');
             document.body.classList.add('modern-mode');
             container?.classList.remove('active');
+            window.scrollTo(0, 0); // Scroll to top of page
         }, 2000);
     }
     
@@ -229,7 +303,7 @@
         if (xpFillEl) xpFillEl.style.width = `${Math.min(100, progress)}%`;
         
         const portal = $('gamePortal');
-        if (portal) portal.classList.toggle('active', player.coins >= 3);
+        if (portal) portal.classList.toggle('active', player.coins >= 4);
     }
 
     // Chat

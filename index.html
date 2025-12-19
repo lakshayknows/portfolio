@@ -5,10 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lakshay Handa | AI Engineer · ML Systems · Prototype to Production</title>
     <meta name="description" content="Lakshay Handa - AI Engineer building scalable ML systems with 99.95% accuracy models.">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=beige_fix_1">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
     <script src="config.js"></script>
+    <script>
+        // Auto-enable modern mode if hash is present (dev convenience)
+        window.addEventListener('DOMContentLoaded', () => {
+            if (window.location.hash && window.location.hash !== '#') {
+                document.body.classList.add('modern-mode');
+                document.getElementById('modernPortfolio').classList.add('active');
+                document.getElementById('gameContainer').classList.add('hidden');
+                document.getElementById('crtOverlay').classList.add('hidden');
+                document.getElementById('pressStartOverlay').classList.add('hidden');
+            }
+        });
+    </script>
 </head>
 <body>
     <!-- CRT Overlay -->
@@ -323,398 +335,202 @@
     </div>
 
     <!-- ==================== MODERN PORTFOLIO ==================== -->
-    <div class="modern-portfolio minimal-theme" id="modernPortfolio">
+    <!-- ==================== BEIGE DESIGN PORTFOLIO ==================== -->
+    <div class="modern-portfolio beige-theme" id="modernPortfolio">
         
-        <!-- Navigation - Minimal -->
-        <nav class="minimal-nav">
-            <a href="#hero" class="nav-brand">Index</a>
-            <div class="nav-links-minimal">
-                <a href="#about">About</a>
-                <a href="#contact">Contact</a>
+        <!-- Navigation -->
+        <nav class="beige-nav">
+            <div class="nav-left">
+                <a href="#hero" class="nav-link">Index</a>
+            </div>
+            <div class="nav-right">
+                <a href="#about" class="nav-link">About</a>
+                <a href="#contact" class="nav-link">Contact</a>
             </div>
         </nav>
 
-        <!-- Hero Section - Large Typography -->
-        <section class="minimal-hero" id="hero">
-            <h1 class="giant-name">LAKSHAY</h1>
-        </section>
-
-        <!-- Projects Section with Photo Grid -->
-        <section class="minimal-projects" id="projects">
-            <div class="projects-intro">
-                <h2>PROJECTS</h2>
-                <p>Scalable ML systems, NLP-powered automation, AI agents for workflow execution.</p>
-                <p>I build prototypes that solve real problems fast, lean, production-minded.</p>
-                <div class="project-tags">
-                    <span class="ptag">FRAUD DETECTION</span>
-                    <span class="ptag">SCALABLE ML SYSTEMS</span>
-                    <span class="ptag">AI AUTOMATION</span>
-                    <span class="ptag">NLP / RAG SOLUTIONS</span>
-                    <span class="ptag">ML PIPELINES</span>
-                </div>
-            </div>
-            <div class="photo-grid">
-                <div class="grid-item">
-                    <img src="./assets/profile.jpg" alt="Project 1">
-                    <span class="grid-label">AI Systems</span>
-                </div>
-                <div class="grid-item">
-                    <div class="placeholder-img bg-1"></div>
-                    <span class="grid-label">ML Pipeline</span>
-                </div>
-                <div class="grid-item">
-                    <div class="placeholder-img bg-2"></div>
-                    <span class="grid-label">NLP Engine</span>
-                </div>
-                <div class="grid-item">
-                    <div class="placeholder-img bg-3"></div>
-                    <span class="grid-label">Data Analytics</span>
+        <!-- Hero Section -->
+        <section class="beige-hero" id="hero">
+            <div class="hero-container">
+                <div class="hero-logo-container">
+                    <img src="./assets/logo.png" alt="LAKSHAY" class="hero-logo-img">
                 </div>
             </div>
         </section>
 
-        <!-- Projects Section -->
-        <section class="projects-section" id="projects">
-            <div class="section-container">
-                <div class="section-header">
-                    <span class="section-tag">PORTFOLIO</span>
-                    <h2 class="section-title">Featured Projects</h2>
-                    <p class="section-desc">Real systems. Real impact. From concept to deployment.</p>
-                </div>
-                
-                <div class="projects-grid">
-                    <!-- Project 1 -->
-                    <article class="project-card featured">
-                        <div class="project-visual">
-                            <div class="project-gradient"></div>
-                            <div class="project-icon-lg">💰</div>
-                        </div>
-                        <div class="project-body">
-                            <div class="project-meta">
-                                <span class="project-tag">ML / Finance</span>
-                                <span class="project-status">🟢 Live</span>
-                            </div>
-                            <h3 class="project-title">Fraud Detection System</h3>
-                            <p class="project-desc">Enterprise-grade ML model detecting fraudulent transactions in real-time across 6.2M+ records with 99.95% accuracy.</p>
-                            <div class="project-highlights">
-                                <div class="highlight">
-                                    <span class="hl-value">99.95%</span>
-                                    <span class="hl-label">Accuracy</span>
-                                </div>
-                                <div class="highlight">
-                                    <span class="hl-value">6.2M+</span>
-                                    <span class="hl-label">Records</span>
-                                </div>
-                                <div class="highlight">
-                                    <span class="hl-value">&lt;50ms</span>
-                                    <span class="hl-label">Latency</span>
-                                </div>
-                            </div>
-                            <div class="project-tech">
-                                <span>Python</span>
-                                <span>XGBoost</span>
-                                <span>Scikit-Learn</span>
-                                <span>Streamlit</span>
-                            </div>
-                            <div class="project-links">
-                                <a href="https://github.com/lakshayknows" target="_blank" class="project-link">
-                                    <span>GitHub</span>
-                                    <span>↗</span>
-                                </a>
-                            </div>
-                        </div>
-                    </article>
-
-                    <!-- Project 2 -->
-                    <article class="project-card">
-                        <div class="project-visual">
-                            <div class="project-gradient grad-2"></div>
-                            <div class="project-icon-lg">📧</div>
-                        </div>
-                        <div class="project-body">
-                            <div class="project-meta">
-                                <span class="project-tag">NLP / Security</span>
-                                <span class="project-status">🟢 Live</span>
-                            </div>
-                            <h3 class="project-title">SMS Spam Classifier</h3>
-                            <p class="project-desc">Advanced NLP pipeline with TF-IDF vectorization achieving 97% accuracy and 100% precision in spam detection.</p>
-                            <div class="project-highlights">
-                                <div class="highlight">
-                                    <span class="hl-value">97%</span>
-                                    <span class="hl-label">Accuracy</span>
-                                </div>
-                                <div class="highlight">
-                                    <span class="hl-value">100%</span>
-                                    <span class="hl-label">Precision</span>
-                                </div>
-                            </div>
-                            <div class="project-tech">
-                                <span>Python</span>
-                                <span>NLTK</span>
-                                <span>TF-IDF</span>
-                                <span>Voting Classifier</span>
-                            </div>
-                            <div class="project-links">
-                                <a href="https://github.com/lakshayknows" target="_blank" class="project-link">
-                                    <span>GitHub</span>
-                                    <span>↗</span>
-                                </a>
-                            </div>
-                        </div>
-                    </article>
-
-                    <!-- Project 3 -->
-                    <article class="project-card">
-                        <div class="project-visual">
-                            <div class="project-gradient grad-3"></div>
-                            <div class="project-icon-lg">💬</div>
-                        </div>
-                        <div class="project-body">
-                            <div class="project-meta">
-                                <span class="project-tag">NLP / Analytics</span>
-                                <span class="project-status">Completed</span>
-                            </div>
-                            <h3 class="project-title">Sentiment Analysis Engine</h3>
-                            <p class="project-desc">Large-scale sentiment analysis on 74K+ social media responses with multi-class classification and visualization.</p>
-                            <div class="project-highlights">
-                                <div class="highlight">
-                                    <span class="hl-value">74K+</span>
-                                    <span class="hl-label">Analyzed</span>
-                                </div>
-                                <div class="highlight">
-                                    <span class="hl-value">Multi</span>
-                                    <span class="hl-label">Class</span>
-                                </div>
-                            </div>
-                            <div class="project-tech">
-                                <span>Python</span>
-                                <span>TensorFlow</span>
-                                <span>Plotly</span>
-                                <span>Pandas</span>
-                            </div>
-                            <div class="project-links">
-                                <a href="https://github.com/lakshayknows" target="_blank" class="project-link">
-                                    <span>GitHub</span>
-                                    <span>↗</span>
-                                </a>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-            </div>
-        </section>
-
-        <!-- Skills Section -->
-        <section class="skills-section" id="skills">
-            <div class="section-container">
-                <div class="section-header">
-                    <span class="section-tag">EXPERTISE</span>
-                    <h2 class="section-title">Technical Arsenal</h2>
-                    <p class="section-desc">Tools and technologies I use to build production systems.</p>
-                </div>
-                
-                <div class="skills-grid">
-                    <div class="skill-card">
-                        <div class="skill-header">
-                            <span class="skill-icon">🧠</span>
-                            <h3>ML & AI Systems</h3>
-                        </div>
-                        <ul class="skill-list">
-                            <li><span class="skill-dot"></span>Machine Learning</li>
-                            <li><span class="skill-dot"></span>Deep Learning</li>
-                            <li><span class="skill-dot"></span>Natural Language Processing</li>
-                            <li><span class="skill-dot"></span>Predictive Modeling</li>
-                            <li><span class="skill-dot"></span>Computer Vision</li>
-                        </ul>
-                        <div class="skill-tools">
-                            <span>TensorFlow</span>
-                            <span>PyTorch</span>
-                            <span>Scikit-Learn</span>
-                        </div>
+        <!-- Projects Section - Split Layout -->
+        <section class="beige-projects" id="projects">
+            <div class="split-container">
+                <!-- Left Column: Text -->
+                <div class="split-left">
+                    <h2 class="section-title">PROJECTS</h2>
+                    <p class="section-lead">
+                        Scalable ML systems, NLP-powered automation, AI agents for workflow execution.
+                        <br><br>
+                        I build prototypes that solve real problems fast, lean, production-minded.
+                    </p>
+                    <div class="project-tags-list">
+                        <span class="tag-pill">REAL-TIME DASHBOARDS</span>
+                        <span class="tag-pill">SCALABLE DEPLOYMENTS</span>
+                        <span class="tag-pill">AI AUTOMATION</span>
+                        <span class="tag-pill">END-TO-END SAAS MVP</span>
+                        <span class="tag-pill">ML PIPELINES</span>
                     </div>
-                    
-                    <div class="skill-card">
-                        <div class="skill-header">
-                            <span class="skill-icon">📊</span>
-                            <h3>Data Engineering</h3>
-                        </div>
-                        <ul class="skill-list">
-                            <li><span class="skill-dot"></span>Data Analysis & Wrangling</li>
-                            <li><span class="skill-dot"></span>Feature Engineering</li>
-                            <li><span class="skill-dot"></span>ETL Pipelines</li>
-                            <li><span class="skill-dot"></span>Statistical Modeling</li>
-                            <li><span class="skill-dot"></span>Data Visualization</li>
-                        </ul>
-                        <div class="skill-tools">
-                            <span>Pandas</span>
-                            <span>NumPy</span>
-                            <span>Plotly</span>
-                        </div>
-                    </div>
-                    
-                    <div class="skill-card">
-                        <div class="skill-header">
-                            <span class="skill-icon">🚀</span>
-                            <h3>Deployment</h3>
-                        </div>
-                        <ul class="skill-list">
-                            <li><span class="skill-dot"></span>Model Deployment</li>
-                            <li><span class="skill-dot"></span>API Development</li>
-                            <li><span class="skill-dot"></span>Database Management</li>
-                            <li><span class="skill-dot"></span>Version Control</li>
-                            <li><span class="skill-dot"></span>Cloud Platforms</li>
-                        </ul>
-                        <div class="skill-tools">
-                            <span>Streamlit</span>
-                            <span>Git</span>
-                            <span>MongoDB</span>
-                        </div>
-                    </div>
-                    
-                    <div class="skill-card">
-                        <div class="skill-header">
-                            <span class="skill-icon">💻</span>
-                            <h3>Programming</h3>
-                        </div>
-                        <ul class="skill-list">
-                            <li><span class="skill-dot"></span>Python (Primary)</li>
-                            <li><span class="skill-dot"></span>Rust</li>
-                            <li><span class="skill-dot"></span>SQL</li>
-                            <li><span class="skill-dot"></span>Shell Scripting</li>
-                        </ul>
-                        <div class="skill-tools">
-                            <span>Jupyter</span>
-                            <span>VS Code</span>
-                            <span>Colab</span>
-                        </div>
+                </div>
+
+                <!-- Right Column: Image Grid -->
+                <div class="split-right">
+                    <div class="beige-grid">
+                        <a href="#fraud-detection" class="grid-card-link">
+                            <div class="grid-card">
+                                <div class="card-image placeholder-rust"></div>
+                                <div class="card-info">
+                                    <h3>Fraud Detection</h3>
+                                    <p>99.95% accuracy on 6.2M records</p>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="#spam-classifier" class="grid-card-link">
+                            <div class="grid-card">
+                                <div class="card-image placeholder-beige"></div>
+                                <div class="card-info">
+                                    <h3>SMS Spam Classifier</h3>
+                                    <p>97% accuracy NLP pipeline</p>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="#sentiment-analysis" class="grid-card-link">
+                            <div class="grid-card">
+                                <div class="card-image placeholder-rust"></div>
+                                <div class="card-info">
+                                    <h3>Sentiment Analysis</h3>
+                                    <p>74K+ tweets analyzed</p>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="#ai-chatbot" class="grid-card-link">
+                            <div class="grid-card">
+                                <div class="card-image placeholder-beige"></div>
+                                <div class="card-info">
+                                    <h3>AI Chatbot</h3>
+                                    <p>LLM-powered assistant</p>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="#voice-tutor" class="grid-card-link">
+                            <div class="grid-card">
+                                <div class="card-image placeholder-rust"></div>
+                                <div class="card-info">
+                                    <h3>Voice First AI Tutor</h3>
+                                    <p>Real-time language practice with voice feedback</p>
+                                </div>
+                            </div>
+                        </a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- About Section -->
-        <section class="about-section" id="about">
-            <div class="section-container">
-                <div class="about-grid">
-                    <div class="about-content">
-                        <span class="section-tag">ABOUT</span>
-                        <h2 class="about-title">Building AI systems that work in the real world</h2>
-                        <p class="about-text">
-                            I'm an AI Engineer based in Delhi, currently pursuing B.Com (Honours) at University of Delhi 
-                            while building production-grade ML systems that solve real problems.
-                        </p>
-                        <p class="about-text">
-                            My philosophy: ship fast, iterate faster. From fraud detection analyzing millions of transactions 
-                            to NLP pipelines processing text in real-time, I focus on solutions that deliver measurable impact.
-                        </p>
-                        <div class="about-stats">
-                            <div class="about-stat">
-                                <span class="stat-num">3+</span>
-                                <span class="stat-label">Years Coding</span>
-                            </div>
-                            <div class="about-stat">
-                                <span class="stat-num">10+</span>
-                                <span class="stat-label">ML Models</span>
-                            </div>
-                            <div class="about-stat">
-                                <span class="stat-num">∞</span>
-                                <span class="stat-label">Curiosity</span>
-                            </div>
-                        </div>
-                        <div class="social-links">
-                            <a href="https://x.com/lakshayknows" target="_blank" class="social-link">
-                                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                                <span>X (Twitter)</span>
-                            </a>
-                            <a href="https://linkedin.com/in/lakshayhanda" target="_blank" class="social-link">
-                                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"/></svg>
-                                <span>LinkedIn</span>
-                            </a>
-                            <a href="https://github.com/lakshayknows" target="_blank" class="social-link">
-                                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                                <span>GitHub</span>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="experience-timeline">
-                        <h3>Experience</h3>
-                        <div class="timeline">
-                            <div class="timeline-item">
-                                <div class="timeline-dot"></div>
-                                <div class="timeline-content">
-                                    <span class="timeline-date">Nov - Dec 2024</span>
-                                    <h4>Data Science Intern</h4>
-                                    <span class="timeline-company">Prodigy InfoTech</span>
-                                    <p>Built ML models with 92% accuracy, analyzed 74K+ data points for sentiment analysis, deployed real-time prediction systems.</p>
-                                </div>
-                            </div>
-                            <div class="timeline-item">
-                                <div class="timeline-dot"></div>
-                                <div class="timeline-content">
-                                    <span class="timeline-date">2024</span>
-                                    <h4>Open Source Contributor</h4>
-                                    <span class="timeline-company">Askage AI</span>
-                                    <p>Developed AI-powered terminal chatbot with authentication, API integration, and LLM memory.</p>
-                                </div>
-                            </div>
-                            <div class="timeline-item">
-                                <div class="timeline-dot"></div>
-                                <div class="timeline-content">
-                                    <span class="timeline-date">2023</span>
-                                    <h4>Event Coordinator</h4>
-                                    <span class="timeline-company">French Embassy • Choose France Tour</span>
-                                    <p>Managed large-scale events with 1000+ attendees, achieved 25% satisfaction improvement.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        <!-- About Section - Split Layout -->
+        <section class="beige-about" id="about">
+            <div class="split-container reverse-mobile">
+                <!-- Left Column: Text -->
+                <div class="split-left">
+                    <h2 class="section-title">ABOUT ME</h2>
+                    <p class="about-desc">
+                        I'm an AI engineer in progress building scalable ML and NLP systems that learn, adapt, and move from prototype to production.
+                        <br><br>
+                        I work with data end-to-end, designing models, deploying applications, and shaping AI that automates decisions in SaaS, healthcare, marketing, and climate-focused products.
+                        <br><br>
+                        Curious mind, restless hands.<br>
+                        Always shipping. Always improving.<br>
+                        A future built one model at a time.
+                    </p>
+                    <p class="expert-label">I am expert in these services ...</p>
                 </div>
+
+                <!-- Right Column: Photo & Skills -->
+                <div class="split-right">
+                    <div class="about-photo-container">
+                        <img src="./assets/profile.jpg" alt="Lakshay Handa" class="about-photo">
+                        <div class="photo-overlay-text">@lakshay</div>
+                    </div>
+                    <h1 class="giant-text-right">LAKSHAY</h1>
+                </div>
+            </div>
+            
+            <!-- Skills Chips -->
+            <div class="skills-chips-container">
+                <span class="skill-chip">AI SAAS</span>
+                <span class="skill-chip">API DEVELOPMENT</span>
+                <span class="skill-chip">CI/CD PIPELINES</span>
+                <span class="skill-chip">CLIMATE TECH</span>
+                <span class="skill-chip">CLOUD (GCP)</span>
+                <span class="skill-chip">DATA ANALYSIS</span>
+                <span class="skill-chip">DATA PIPELINES</span>
+                <span class="skill-chip">DEEP LEARNING</span>
+                <span class="skill-chip">HEALTHCARE AI</span>
+                <span class="skill-chip">MACHINE LEARNING</span>
+                <span class="skill-chip">MARKETING AUTOMATION</span>
+                <span class="skill-chip">MLOPS BASICS</span>
+                <span class="skill-chip">MODEL DEPLOYMENT</span>
+                <span class="skill-chip">NLP & LLMS</span>
+                <span class="skill-chip">PYTHON</span>
+                <span class="skill-chip">RAG SYSTEMS</span>
+                <span class="skill-chip">SCALABLE MODEL DEVELOPMENT</span>
+                <span class="skill-chip">SQL</span>
+                <span class="skill-chip">STREAMLIT</span>
             </div>
         </section>
 
-        <!-- Contact / Footer -->
-        <footer class="footer-section" id="contact">
-            <div class="footer-container">
-                <div class="footer-game-ref">
-                    <span class="pixel-star">★</span>
-                    <span class="game-ref-text">LEVEL COMPLETE</span>
-                    <span class="pixel-star">★</span>
+        <!-- Footer Section -->
+        <footer class="beige-footer" id="contact">
+            <div class="footer-split">
+                <div class="footer-left">
+                    <h2 class="section-title">WHAT THEY SAID</h2>
+                    <p class="testimonial">
+                        Wow — awesome, full, fast.<br>
+                        Exactly what we needed.
+                    </p>
                 </div>
-                <h2 class="footer-title">Let's Build Something Great</h2>
-                <p class="footer-subtitle">Open to internships, collaborations, and exciting AI/ML opportunities.</p>
-                <a href="mailto:connect.lakshay@outlook.com" class="footer-email">connect.lakshay@outlook.com</a>
-                <div class="footer-social">
-                    <a href="https://x.com/lakshayknows" target="_blank" class="footer-social-link" title="X (Twitter)">
-                        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                    </a>
-                    <a href="https://www.linkedin.com/in/lakshayhanda" target="_blank" class="footer-social-link" title="LinkedIn">
-                        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"/></svg>
-                    </a>
-                    <a href="https://github.com/lakshayknows" target="_blank" class="footer-social-link" title="GitHub">
-                        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                    </a>
-                    <a href="tel:+919818575939" class="footer-social-link" title="Phone">
-                        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-                    </a>
+                <div class="footer-right">
+                    <p class="testimonial-quote">
+                        "Working with Lakshay was a game-changer. He didn't just deliver a strategy — he uncovered the soul of our business and translated it into a powerful narrative."
+                    </p>
+                    <p class="testimonial-author">
+                        Client Feedback<br>
+                        <span class="author-role">FOUNDER</span>
+                    </p>
                 </div>
-                <div class="footer-bottom">
-                    <p>© 2024 Lakshay Handa. Crafted with curiosity & code.</p>
-                    <button class="back-to-game" onclick="returnToGame()">
-                        <span>🎮</span>
-                        <span>Return to Game</span>
-                    </button>
+            </div>
+
+            <div class="footer-giant-logo">
+                <img src="./assets/logo.png" alt="LAKSHAY" class="footer-logo-img">
+            </div>
+
+            <div class="footer-bottom-bar">
+                <div class="footer-links">
+                    <a href="#">LAKSHAY'S PORTFOLIO</a>
+                </div>
+                <div class="footer-socials">
+                    <a href="https://instagram.com" target="_blank">INSTAGRAM</a>
+                    <a href="https://linkedin.com/in/lakshayhanda" target="_blank">LINKEDIN</a>
+                    <a href="https://x.com/lakshayknows" target="_blank">TWITTER</a>
+                    <a href="#" onclick="returnToGame()">404 (GAME)</a>
+                </div>
+                <div class="footer-copy">
+                    © 2025 LAKSHAY
                 </div>
             </div>
         </footer>
 
-        <!-- Floating AI Chat for Modern Section -->
+        <!-- Floating AI Chat -->
         <div class="modern-chat" id="modernChat">
-            <button class="chat-fab" onclick="toggleModernChat()">
+            <button class="chat-fab beige-fab" onclick="toggleModernChat()">
                 <span class="fab-icon">💬</span>
-                <span class="fab-pulse"></span>
             </button>
             <div class="chat-panel glass-panel" id="modernChatWindow">
-                <div class="chat-panel-header">
+                <div class="chat-panel-header beige-chat-header">
                     <div class="chat-avatar-modern">🤖</div>
                     <div class="chat-panel-info">
                         <span class="chat-panel-title">Lakshay AI</span>
@@ -724,13 +540,8 @@
                 </div>
                 <div class="chat-panel-messages" id="modernChatMessages">
                     <div class="modern-message bot">
-                        <p>Hi! 👋 I'm Lakshay's AI assistant. I can tell you about his projects, skills, experience, or answer any questions.</p>
+                        <p>Hi! 👋 I'm Lakshay's AI assistant. Ask me about projects, skills, or experience.</p>
                     </div>
-                </div>
-                <div class="chat-panel-suggestions">
-                    <button onclick="askModernQuestion('What makes Lakshay unique?')">Why Lakshay?</button>
-                    <button onclick="askModernQuestion('Tell me about the fraud detection project')">Projects</button>
-                    <button onclick="askModernQuestion('How can I contact Lakshay?')">Contact</button>
                 </div>
                 <div class="chat-panel-input">
                     <input type="text" id="modernChatInput" placeholder="Ask anything...">
