@@ -712,14 +712,22 @@ body.modern-mode { font-family: var(--font-modern); background: var(--beige-bg);
 }
 
 /* ==================== MOBILE CONTROLS ==================== */
+/* Hidden by default everywhere - JS adds 'visible' class, CSS shows only on mobile */
 .mobile-controls {
-    display: none; /* Hidden by default on desktop */
+    display: none;
     position: fixed;
     bottom: 30px;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 9999;
+    z-index: 99999;
     gap: 80px;
+}
+
+/* Only show on mobile/tablet when 'visible' class is added by JS */
+@media (max-width: 768px) {
+    .mobile-controls.visible {
+        display: flex;
+    }
 }
 
 .mobile-btn {
@@ -760,10 +768,6 @@ body.modern-mode { font-family: var(--font-modern); background: var(--beige-bg);
 
 /* Mobile (max-width: 768px) */
 @media (max-width: 768px) {
-    /* Show mobile controls */
-    .mobile-controls {
-        display: flex;
-    }
     
     /* Hide keyboard-only elements */
     .how-to-play-menu .help-list li:nth-child(1) { display: none; }

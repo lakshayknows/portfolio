@@ -130,10 +130,22 @@
         if (gameStarted) return;
         gameStarted = true;
         $('pressStartOverlay')?.classList.add('hidden');
+        
+        // Show mobile controls on mobile devices
+        const mobileControls = $('mobileControls');
+        if (mobileControls && window.innerWidth <= 768) {
+            mobileControls.classList.add('visible');
+        }
+        
         spawnCoins();
         updateCharacterPosition();
         updateUI();
-        setTimeout(() => appendChatMessage('bot', "🎮 Use arrow keys to move! Walk into coins to collect. Reach the portal!"), 1000);
+        
+        // Different message for mobile vs desktop
+        const moveMsg = window.innerWidth <= 768 
+            ? "🎮 Use the arrow buttons below to move! Walk into coins to collect. Reach the portal!"
+            : "🎮 Use arrow keys to move! Walk into coins to collect. Reach the portal!";
+        setTimeout(() => appendChatMessage('bot', moveMsg), 1000);
     }
 
     // Spawn coins at ground level
