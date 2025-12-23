@@ -329,8 +329,8 @@
         if (portal) portal.classList.toggle('active', player.coins >= 4);
     }
 
-    // Chat - calls LangChain RAG backend
-    const RAG_API_URL = window.CONFIG?.RAG_API_URL || 'http://localhost:3001/api/chat';
+    // Chat - calls LangChain RAG backend (deployed on Render)
+    const RAG_API_URL = window.CONFIG?.RAG_API_URL || 'https://portfolio-k64e.onrender.com/api/chat';
     
     async function callLLM(message) {
         try {
