@@ -830,18 +830,41 @@ body.modern-mode { font-family: var(--font-modern); background: var(--beige-bg);
     /* Hide floating platforms on mobile */
     .floating-platform { display: none; }
     
-    /* Chatbot - hide by default on mobile to save space */
+    /* Control Dock - Move to right side, vertical stack */
+    .control-dock {
+        position: fixed;
+        bottom: auto;
+        left: auto;
+        top: 120px;
+        right: 10px;
+        flex-direction: column;
+        gap: 8px;
+        z-index: 1000;
+    }
+    .dock-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+    
+    /* Chatbot - Full screen modal on mobile */
     .chatbot {
-        display: none !important;
+        display: none;
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        border-radius: 0 !important;
+        z-index: 10000 !important;
+    }
+    .chatbot.open {
+        display: flex !important;
     }
     .chatbot.minimized {
-        display: block !important;
-        width: auto;
-        height: 50px;
-        bottom: auto;
-        top: 60px;
-        right: 10px;
-        left: auto;
+        display: none !important;
     }
     
     /* Hide keyboard-only elements */

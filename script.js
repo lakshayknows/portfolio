@@ -483,9 +483,20 @@
     window.closeWorldMap = () => { const m = $('worldMapModal'); if (m) m.style.display = 'none'; };
     window.toggleChatbot = () => { 
         const chat = $('chatbot');
-        chat?.classList.toggle('minimized');
+        if (!chat) return;
+        
+        // On mobile, toggle 'open' class for full-screen modal
+        // On desktop, toggle 'minimized' class
+        const isMobile = window.innerWidth <= 768;
+        if (isMobile) {
+            chat.classList.toggle('open');
+        } else {
+            chat.classList.toggle('minimized');
+        }
+        
         const icon = $('chatbotToggleIcon');
-        if (icon) icon.textContent = chat?.classList.contains('minimized') ? '+' : '−';
+        const isOpen = isMobile ? chat.classList.contains('open') : !chat.classList.contains('minimized');
+        if (icon) icon.textContent = isOpen ? '−' : '+';
     };
     window.sendMessage = sendMessage;
     window.sendModernMessage = sendModernMessage;
