@@ -769,50 +769,80 @@ body.modern-mode { font-family: var(--font-modern); background: var(--beige-bg);
 /* Mobile (max-width: 768px) */
 @media (max-width: 768px) {
     
-    /* Game World - Make it fill the screen better */
-    .game-world-container {
-        width: 100%;
-        height: calc(100vh - 60px);
+    /* Game Container - Full screen */
+    .game-container {
+        min-height: 100vh;
+        padding: 0;
         overflow: hidden;
     }
     
-    .game-world {
-        transform: scale(0.85);
-        transform-origin: center center;
+    /* Game World Container - position at bottom of screen */
+    .game-world-container {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 200px;
+        overflow: visible;
     }
     
-    /* Ground layer adjustments */
+    /* Ground layer - at bottom */
     .ground-layer {
-        height: 80px;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 100px;
     }
-    .grass-row { height: 12px; }
-    .dirt-layer { height: 68px; }
+    .grass-row { height: 15px; }
+    .dirt-layer { height: 85px; }
     
-    /* Character - smaller on mobile */
+    /* Character - above ground */
     .character {
+        position: fixed !important;
+        bottom: 100px !important;
         width: 48px;
         height: 72px;
-        bottom: 80px;
+        z-index: 200;
     }
     
-    /* Coins - smaller on mobile */
+    /* Coins - position above ground, spaced across screen */
     .game-coin {
+        position: fixed !important;
+        bottom: 110px !important;
         width: 40px;
         height: 40px;
+        z-index: 150;
     }
     .game-coin .coin-icon { font-size: 18px; }
     
-    /* Portal - smaller and repositioned */
+    /* Portal - fixed position on right */
     .portal-container {
-        right: 30px;
-        bottom: 60px;
-        width: 80px;
-        height: 110px;
-        transform: scale(0.8);
+        position: fixed !important;
+        right: 20px !important;
+        bottom: 100px !important;
+        width: 70px;
+        height: 100px;
+        transform: scale(0.7);
+        z-index: 180;
     }
     
-    /* Floating platforms - hide on mobile for cleaner look */
+    /* Hide floating platforms on mobile */
     .floating-platform { display: none; }
+    
+    /* Chatbot - hide by default on mobile to save space */
+    .chatbot {
+        display: none !important;
+    }
+    .chatbot.minimized {
+        display: block !important;
+        width: auto;
+        height: 50px;
+        bottom: auto;
+        top: 60px;
+        right: 10px;
+        left: auto;
+    }
     
     /* Hide keyboard-only elements */
     .how-to-play-menu .help-list li:nth-child(1) { display: none; }

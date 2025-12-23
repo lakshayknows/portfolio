@@ -156,7 +156,7 @@
     // Spawn coins at ground level - using responsive positions
     function spawnCoins() {
         const gameWorld = $('gameWorld');
-        if (!gameWorld) return;
+        const isMobile = window.innerWidth <= 768;
         document.querySelectorAll('.game-coin').forEach(c => c.remove());
         coinElements = [];
         
@@ -165,11 +165,18 @@
             const el = document.createElement('div');
             el.className = 'game-coin';
             el.dataset.id = coin.id;
-            el.dataset.xPercent = coin.xPercent; // Store for collision detection
+            el.dataset.xPercent = coin.xPercent;
             el.innerHTML = `<span class="coin-icon">${coin.icon}</span>`;
             el.style.left = `${percentToPixels(coin.xPercent)}px`;
-            el.style.bottom = window.innerWidth <= 768 ? '80px' : '100px';
-            gameWorld.appendChild(el);
+            
+            // On mobile, coins use fixed positioning from CSS
+            // On desktop, they're positioned within game world
+            if (isMobile) {
+                document.body.appendChild(el);
+            } else {
+                el.style.bottom = '100px';
+                gameWorld?.appendChild(el);
+            }
             coinElements.push({ el, data: coin });
         });
     }
