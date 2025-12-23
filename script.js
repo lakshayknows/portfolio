@@ -489,7 +489,15 @@
         // On desktop, toggle 'minimized' class
         const isMobile = window.innerWidth <= 768;
         if (isMobile) {
-            chat.classList.toggle('open');
+            // On mobile, toggle open class and ensure minimized is removed
+            const willOpen = !chat.classList.contains('open');
+            if (willOpen) {
+                chat.classList.remove('minimized');
+                chat.classList.add('open');
+            } else {
+                chat.classList.remove('open');
+                chat.classList.add('minimized');
+            }
         } else {
             chat.classList.toggle('minimized');
         }

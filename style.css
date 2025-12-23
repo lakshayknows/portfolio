@@ -832,19 +832,19 @@ body.modern-mode { font-family: var(--font-modern); background: var(--beige-bg);
     
     /* Control Dock - Move to right side, vertical stack */
     .control-dock {
-        position: fixed;
-        bottom: auto;
-        left: auto;
-        top: 120px;
-        right: 10px;
-        flex-direction: column;
-        gap: 8px;
-        z-index: 1000;
+        position: fixed !important;
+        bottom: auto !important;
+        left: auto !important;
+        top: 200px !important;
+        right: 10px !important;
+        flex-direction: column !important;
+        gap: 8px !important;
+        z-index: 1000 !important;
     }
     .dock-btn {
-        width: 40px;
-        height: 40px;
-        font-size: 16px;
+        width: 36px !important;
+        height: 36px !important;
+        font-size: 14px !important;
     }
     
     /* Chatbot - Full screen modal on mobile */
