@@ -769,6 +769,51 @@ body.modern-mode { font-family: var(--font-modern); background: var(--beige-bg);
 /* Mobile (max-width: 768px) */
 @media (max-width: 768px) {
     
+    /* Game World - Make it fill the screen better */
+    .game-world-container {
+        width: 100%;
+        height: calc(100vh - 60px);
+        overflow: hidden;
+    }
+    
+    .game-world {
+        transform: scale(0.85);
+        transform-origin: center center;
+    }
+    
+    /* Ground layer adjustments */
+    .ground-layer {
+        height: 80px;
+    }
+    .grass-row { height: 12px; }
+    .dirt-layer { height: 68px; }
+    
+    /* Character - smaller on mobile */
+    .character {
+        width: 48px;
+        height: 72px;
+        bottom: 80px;
+    }
+    
+    /* Coins - smaller on mobile */
+    .game-coin {
+        width: 40px;
+        height: 40px;
+    }
+    .game-coin .coin-icon { font-size: 18px; }
+    
+    /* Portal - smaller and repositioned */
+    .portal-container {
+        right: 30px;
+        bottom: 60px;
+        width: 80px;
+        height: 110px;
+        transform: scale(0.8);
+    }
+    
+    /* Floating platforms - hide on mobile for cleaner look */
+    .floating-platform { display: none; }
+    
     /* Hide keyboard-only elements */
     .how-to-play-menu .help-list li:nth-child(1) { display: none; }
     

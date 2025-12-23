@@ -32,13 +32,18 @@
     // Run validation after DOM loads
     document.addEventListener('DOMContentLoaded', validateConfig);
 
-    // Skill coins at ground level
+    // Skill coins at ground level - using percentages for responsive layout
+    // x values are percentages (0-100) of the game world width
     const SKILL_COINS = [
-        { id: 'python', icon: '🐍', name: 'Python', desc: 'Primary ML/AI language', xp: 200, x: 150 },
-        { id: 'ml', icon: '🧠', name: 'Machine Learning', desc: 'TensorFlow, XGBoost', xp: 300, x: 350 },
-        { id: 'data', icon: '📊', name: 'Data Engineering', desc: '6.2M+ records', xp: 250, x: 550 },
-        { id: 'deploy', icon: '🚀', name: 'Deployment', desc: 'Streamlit, APIs', xp: 250, x: 750 },
+        { id: 'python', icon: '🐍', name: 'Python', desc: 'Primary ML/AI language', xp: 200, xPercent: 15 },
+        { id: 'ml', icon: '🧠', name: 'Machine Learning', desc: 'TensorFlow, XGBoost', xp: 300, xPercent: 35 },
+        { id: 'data', icon: '📊', name: 'Data Engineering', desc: '6.2M+ records', xp: 250, xPercent: 55 },
+        { id: 'deploy', icon: '🚀', name: 'Deployment', desc: 'Streamlit, APIs', xp: 250, xPercent: 75 },
     ];
+    
+    // Get game world width for responsive positioning
+    const getGameWidth = () => Math.min(window.innerWidth - 40, 900);
+    const percentToPixels = (percent) => (percent / 100) * getGameWidth();
 
     // Player state
     const player = { x: 50, level: 1, xp: 0, coins: 0, collectedCoins: new Set() };
@@ -148,7 +153,7 @@
         setTimeout(() => appendChatMessage('bot', moveMsg), 1000);
     }
 
-    // Spawn coins at ground level
+    // Spawn coins at ground level - using responsive positions
     function spawnCoins() {
         const gameWorld = $('gameWorld');
         if (!gameWorld) return;
@@ -160,18 +165,20 @@
             const el = document.createElement('div');
             el.className = 'game-coin';
             el.dataset.id = coin.id;
+            el.dataset.xPercent = coin.xPercent; // Store for collision detection
             el.innerHTML = `<span class="coin-icon">${coin.icon}</span>`;
-            el.style.left = `${coin.x}px`;
-            el.style.bottom = '100px';
+            el.style.left = `${percentToPixels(coin.xPercent)}px`;
+            el.style.bottom = window.innerWidth <= 768 ? '80px' : '100px';
             gameWorld.appendChild(el);
             coinElements.push({ el, data: coin });
         });
     }
 
-    // Keyboard movement
+    // Keyboard movement - uses dynamic game bounds
     function handleKeyboard(e) {
         if (!gameStarted || isModernMode) return;
-        const step = 25;
+        const step = window.innerWidth <= 768 ? 20 : 25;
+        const maxX = getGameWidth() - 50;
         let moved = false;
         
         switch(e.key.toLowerCase()) {
@@ -180,7 +187,7 @@
                 moved = true;
                 break;
             case 'arrowright': case 'd':
-                player.x = Math.min(900, player.x + step);
+                player.x = Math.min(maxX, player.x + step);
                 moved = true;
                 break;
         }
@@ -200,10 +207,11 @@
         
         const move = () => {
             const step = 20;
+            const maxX = getGameWidth() - 50;
             if (direction === 'left') {
                 player.x = Math.max(0, player.x - step);
             } else {
-                player.x = Math.min(900, player.x + step);
+                player.x = Math.min(maxX, player.x + step);
             }
             updateCharacterPosition();
             checkCollisions();
@@ -234,7 +242,10 @@
         for (let i = coinElements.length - 1; i >= 0; i--) {
             const coin = coinElements[i];
             if (player.collectedCoins.has(coin.data.id)) continue;
-            if (Math.abs(player.x - coin.data.x) < 50) {
+            // Use percentage-based position for responsive collision
+            const coinX = percentToPixels(coin.data.xPercent);
+            const collisionThreshold = window.innerWidth <= 768 ? 40 : 50;
+            if (Math.abs(player.x - coinX) < collisionThreshold) {
                 lastCollectTime = now;
                 collectCoin(coin, i);
                 break; // Only collect one coin at a time
