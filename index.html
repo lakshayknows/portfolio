@@ -213,6 +213,16 @@
             </div>
         </div>
         
+        <!-- Mobile Touch Controls (visible on mobile only) -->
+        <div class="mobile-controls" id="mobileControls">
+            <button class="mobile-btn mobile-left" id="mobileLeftBtn" ontouchstart="startMobileMove('left')" ontouchend="stopMobileMove()" onmousedown="startMobileMove('left')" onmouseup="stopMobileMove()">
+                <span>◀</span>
+            </button>
+            <button class="mobile-btn mobile-right" id="mobileRightBtn" ontouchstart="startMobileMove('right')" ontouchend="stopMobileMove()" onmousedown="startMobileMove('right')" onmouseup="stopMobileMove()">
+                <span>▶</span>
+            </button>
+        </div>
+        
         <!-- World Map Modal -->
         <div class="world-map-modal" id="worldMapModal">
             <div class="world-map-content glass-panel">

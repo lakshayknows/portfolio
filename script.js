@@ -180,6 +180,34 @@
         }
     }
 
+    // Mobile touch controls
+    let mobileInterval = null;
+    window.startMobileMove = function(direction) {
+        if (!gameStarted || isModernMode) return;
+        stopMobileMove(); // Clear any existing interval
+        
+        const move = () => {
+            const step = 20;
+            if (direction === 'left') {
+                player.x = Math.max(0, player.x - step);
+            } else {
+                player.x = Math.min(900, player.x + step);
+            }
+            updateCharacterPosition();
+            checkCollisions();
+        };
+        
+        move(); // Move immediately
+        mobileInterval = setInterval(move, 100); // Continue moving while held
+    };
+    
+    window.stopMobileMove = function() {
+        if (mobileInterval) {
+            clearInterval(mobileInterval);
+            mobileInterval = null;
+        }
+    };
+
     function updateCharacterPosition() {
         const char = $('character');
         if (char) char.style.left = `${player.x}px`;

@@ -711,14 +711,191 @@ body.modern-mode { font-family: var(--font-modern); background: var(--beige-bg);
     display: flex; align-items: center; justify-content: center;
 }
 
-/* Responsive */
+/* ==================== MOBILE CONTROLS ==================== */
+.mobile-controls {
+    display: none; /* Hidden by default on desktop */
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    gap: 80px;
+}
+
+.mobile-btn {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: linear-gradient(145deg, rgba(0, 255, 136, 0.3), rgba(0, 191, 255, 0.3));
+    border: 3px solid var(--retro-primary);
+    color: var(--retro-primary);
+    font-size: 28px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    transition: all 0.2s;
+}
+
+.mobile-btn:active {
+    background: var(--retro-primary);
+    color: #000;
+    transform: scale(0.95);
+}
+
+/* ==================== RESPONSIVE STYLES ==================== */
+
+/* Tablet (768px - 1024px) */
+@media (max-width: 1024px) {
+    .split-container { gap: 40px; padding: 80px 40px; }
+    .beige-nav { padding: 20px 40px; }
+    .hud { width: 220px; left: 10px; top: 70px; padding: 15px; }
+    .action-orbs { right: 10px; }
+    .progress-panel { display: none; }
+    .chatbot { width: 340px; right: 10px; }
+}
+
+/* Mobile (max-width: 768px) */
 @media (max-width: 768px) {
+    /* Show mobile controls */
+    .mobile-controls {
+        display: flex;
+    }
+    
+    /* Hide keyboard-only elements */
+    .how-to-play-menu .help-list li:nth-child(1) { display: none; }
+    
+    /* Modern Portfolio - Single column */
     .split-container { grid-template-columns: 1fr; padding: 60px 20px; }
     .reverse-mobile { display: flex; flex-direction: column-reverse; }
     .beige-hero { padding: 0 20px; }
     .giant-text-right { font-size: 60px; text-align: center; }
     .footer-split { grid-template-columns: 1fr; padding: 0 20px 60px; }
-    .footer-bottom-bar { flex-direction: column; gap: 20px; padding: 30px 20px; }
+    .footer-bottom-bar { flex-direction: column; gap: 20px; padding: 30px 20px; text-align: center; }
     .nav-link { margin-left: 20px; font-size: 12px; }
-    .beige-nav { padding: 20px; }
+    .beige-nav { padding: 15px 20px; }
+    .beige-grid { grid-template-columns: 1fr; }
+    .skills-chips-container { padding: 0 20px 60px; }
+    
+    /* Game Section */
+    .game-container { padding: 10px; }
+    
+    /* HUD - Smaller and repositioned */
+    .hud { 
+        width: 180px; 
+        top: 60px; 
+        left: 10px; 
+        padding: 12px;
+        font-size: 8px;
+    }
+    .hud-title { font-size: 8px; }
+    .hud-level { font-size: 12px; }
+    .hud-class { font-size: 10px; }
+    .hud-stat-row { font-size: 8px; gap: 6px; }
+    .inventory-items { gap: 5px; }
+    .inv-item { font-size: 16px; }
+    
+    /* Action orbs - Horizontal at top */
+    .action-orbs {
+        position: fixed;
+        top: 10px;
+        right: 50%;
+        transform: translateX(50%);
+        flex-direction: row;
+        gap: 8px;
+    }
+    .action-orb {
+        padding: 8px 12px;
+    }
+    .orb-label { display: none; }
+    .orb-icon { font-size: 18px; }
+    
+    /* Progress panel hidden on mobile */
+    .progress-panel { display: none; }
+    
+    /* Chatbot - Full width on mobile */
+    .chatbot {
+        width: calc(100% - 20px);
+        right: 10px;
+        left: 10px;
+        bottom: 120px; /* Above mobile controls */
+        height: 400px;
+    }
+    .chatbot.minimized { height: 50px; }
+    
+    /* Modern chat */
+    .modern-chat { bottom: 100px; right: 20px; }
+    .chat-panel { 
+        width: calc(100vw - 40px); 
+        right: -10px;
+        height: 450px;
+    }
+    
+    /* Portal */
+    .portal-container { right: 50px; }
+    
+    /* Character */
+    .character { width: 48px; height: 72px; }
+    
+    /* Press Start - Responsive */
+    .start-title { font-size: 24px; }
+    .title-tagline { font-size: 9px; }
+    .start-hints { flex-direction: column; gap: 10px; }
+    .hint-item { font-size: 8px; padding: 8px 12px; }
+    .start-stats { gap: 20px; flex-wrap: wrap; justify-content: center; }
+    .start-stat .stat-num { font-size: 18px; }
+    .press-start-btn { padding: 15px 30px; font-size: 12px; }
+    
+    /* Control dock */
+    .control-dock { bottom: 110px; }
+}
+
+/* Small phones (max-width: 480px) */
+@media (max-width: 480px) {
+    .mobile-btn {
+        width: 60px;
+        height: 60px;
+        font-size: 24px;
+    }
+    .mobile-controls { gap: 60px; }
+    
+    .hud { 
+        width: 150px; 
+        padding: 10px;
+    }
+    .inventory-title { font-size: 7px; }
+    
+    .start-title { font-size: 20px; }
+    .start-hints { display: none; }
+    .start-stats { gap: 15px; }
+    .start-stat .stat-num { font-size: 16px; }
+    .start-stat .stat-desc { font-size: 7px; }
+    
+    .beige-nav { 
+        padding: 10px 15px; 
+    }
+    .nav-link { margin-left: 10px; font-size: 10px; }
+    
+    .hero-logo-img { max-width: 100%; }
+    
+    .section-title { font-size: 14px; }
+    .section-lead { font-size: 22px; }
+    .about-desc { font-size: 16px; }
+    .testimonial { font-size: 24px; }
+    
+    .chatbot { bottom: 100px; height: 350px; }
+    .chat-panel { height: 400px; }
+}
+
+/* Landscape mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+    .mobile-controls { bottom: 10px; }
+    .mobile-btn { width: 50px; height: 50px; font-size: 20px; }
+    .hud { top: 10px; }
+    .game-world-container { height: 60vh; }
+    .press-start-overlay { padding: 20px; }
+    .start-content { transform: scale(0.8); }
 }
