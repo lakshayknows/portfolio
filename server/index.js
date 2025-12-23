@@ -21,7 +21,11 @@ app.use(express.json());
 
 // Configuration
 const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
-const PDF_PATH = path.join(__dirname, '..', 'assets', 'lakshayhanda_AIEngineer.pdf');
+// Try server folder first (for Render), fallback to assets folder (for local)
+const PDF_NAME = 'lakshayhanda_AIEngineer.pdf';
+const PDF_PATH = fs.existsSync(path.join(__dirname, PDF_NAME)) 
+    ? path.join(__dirname, PDF_NAME)
+    : path.join(__dirname, '..', 'assets', PDF_NAME);
 const PORT = process.env.PORT || 3001;
 
 let resumeContent = '';
