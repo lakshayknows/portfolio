@@ -7,6 +7,31 @@
     const API_URL = window.CONFIG?.API_URL || 'https://openrouter.ai/api/v1/chat/completions';
     const MODEL = window.CONFIG?.MODEL || 'google/gemini-2.0-flash-001';
 
+    // Config validation on load
+    const validateConfig = () => {
+        const issues = [];
+        if (!window.CONFIG) {
+            issues.push('❌ config.js not loaded - copy config.example.js to config.js');
+        } else {
+            if (!API_KEY || API_KEY === 'your-openrouter-api-key-here') {
+                issues.push('❌ API_KEY is missing or still a placeholder');
+            }
+            if (!API_URL) {
+                issues.push('❌ API_URL is missing');
+            }
+        }
+        if (issues.length > 0) {
+            console.warn('🔧 LLM Chat Config Issues:\n' + issues.join('\n'));
+            console.info('💡 Get your API key from: https://openrouter.ai/keys');
+            return false;
+        }
+        console.log('✅ LLM Chat config loaded successfully');
+        return true;
+    };
+    
+    // Run validation after DOM loads
+    document.addEventListener('DOMContentLoaded', validateConfig);
+
     // Skill coins at ground level
     const SKILL_COINS = [
         { id: 'python', icon: '🐍', name: 'Python', desc: 'Primary ML/AI language', xp: 200, x: 150 },
@@ -23,8 +48,6 @@
     let isModernMode = false;
     let coinElements = [];
 
-    // AI Context
-    const AI_CONTEXT = `Lakshay's AI assistant. AI Engineer, Delhi. 99.95% fraud detection on 6.2M records. Skills: Python, TensorFlow, XGBoost, NLP, Rust. Be concise.`;
 
     // DOM helper
     const $ = id => document.getElementById(id);
@@ -306,25 +329,39 @@
         if (portal) portal.classList.toggle('active', player.coins >= 4);
     }
 
-    // Chat
+    // Chat - calls LangChain RAG backend
+    const RAG_API_URL = window.CONFIG?.RAG_API_URL || 'http://localhost:3001/api/chat';
+    
     async function callLLM(message) {
-        if (!API_KEY) return getFallback(message);
         try {
-            const res = await fetch(API_URL, {
+            console.log('🚀 Sending message to LangChain RAG backend...');
+            const res = await fetch(RAG_API_URL, {
                 method: 'POST',
-                headers: { 'Authorization': `Bearer ${API_KEY}`, 'Content-Type': 'application/json' },
-                body: JSON.stringify({ model: MODEL, messages: [{ role: 'system', content: AI_CONTEXT }, { role: 'user', content: message }], max_tokens: 200 })
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message })
             });
+            
+            console.log(`📡 API Response Status: ${res.status}`);
+            
+            if (!res.ok) {
+                const errorData = await res.json().catch(() => ({}));
+                console.error('❌ RAG API Error:', errorData);
+                return errorData.error || "⚠️ Something went wrong. Please try again.";
+            }
+            
             const data = await res.json();
-            return data.choices?.[0]?.message?.content || getFallback(message);
-        } catch (e) { return getFallback(message); }
+            console.log('✅ RAG Response received');
+            return data.response || "⚠️ Unexpected response. Please try again.";
+            
+        } catch (e) { 
+            console.error('❌ LLM Chat Error:', e.message);
+            if (e.message.includes('Failed to fetch')) {
+                return "⚠️ Backend not running. Start with: cd server && npm start";
+            }
+            return "⚠️ Connection issue. Please try again.";
+        }
     }
-    function getFallback(msg) {
-        const m = msg.toLowerCase();
-        if (m.includes('project')) return "Key projects: Fraud Detection (99.95% accuracy), SMS Spam Classifier (97%), Sentiment Analysis (74K+ tweets).";
-        if (m.includes('skill')) return "Skills: Python, TensorFlow, Scikit-Learn, XGBoost, NLP, Pandas, SQL, Rust.";
-        return "I'm Lakshay's AI. Ask about projects, skills, or experience!";
-    }
+
 
     async function sendMessage() {
         const input = $('chatInput');
@@ -332,8 +369,15 @@
         if (!msg) return;
         appendChatMessage('user', msg);
         input.value = '';
+        input.disabled = true;
+        appendChatMessage('bot', '💭 Thinking...');
         const response = await callLLM(msg);
+        // Remove "Thinking..." message
+        const container = $('chatbotMessages');
+        if (container?.lastChild) container.lastChild.remove();
         appendChatMessage('bot', response);
+        input.disabled = false;
+        input.focus();
     }
 
     async function sendModernMessage() {
@@ -342,8 +386,15 @@
         if (!msg) return;
         appendModernMessage('user', msg);
         input.value = '';
+        input.disabled = true;
+        appendModernMessage('bot', '💭 Thinking...');
         const response = await callLLM(msg);
+        // Remove "Thinking..." message
+        const container = $('modernChatMessages');
+        if (container?.lastChild) container.lastChild.remove();
         appendModernMessage('bot', response);
+        input.disabled = false;
+        input.focus();
     }
 
     function appendChatMessage(sender, text) {
